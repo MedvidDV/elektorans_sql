@@ -8,7 +8,7 @@ ORDER BY last_name;
 SELECT e.first_name, e.last_name,
        AVG(s.payment) AS average
 FROM salary AS s
-         INNER JOIN employee AS e on s.employee_id = e.employee_id
+         INNER JOIN employee AS e on e.employee_id = s.employee_id
 GROUP BY s.employee_id;
 
 #3 get average and highest salary by position;
@@ -27,7 +27,7 @@ SELECT e.first_name, e.last_name,
        COUNT(i.date) AS working_days,
        SUM(i.income) AS total_income
 FROM income AS i
-         LEFT JOIN employee AS e on i.employee_id = e.employee_id
+         INNER JOIN employee AS e on i.employee_id = e.employee_id
 WHERE e.position_id = 4 AND (i.date BETWEEN '2019-10-01' AND '2019-10-30')
 GROUP BY e.employee_id;
 
@@ -38,9 +38,9 @@ SELECT t.unit_number,
        AVG(i.income) AS average_income,
        COUNT(i.date) AS working_days
 FROM income AS i
-         LEFT JOIN transport AS t on t.transport_id=i.transport_id
+         INNER JOIN transport AS t on t.transport_id=i.transport_id
 WHERE i.date BETWEEN '2019-09-01' AND '2019-09-30'
-GROUP BY t.unit_number ORDER BY working_days DESC;
+GROUP BY t.transport_id ORDER BY working_days DESC;
 
 #6 get people who have birthday in May;
 
@@ -58,4 +58,3 @@ SELECT e.first_name, e.last_name,
            ) AS worked_years
 FROM employee AS e
 ORDER BY worked_years DESC ;
-
