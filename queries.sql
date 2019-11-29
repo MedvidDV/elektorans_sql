@@ -18,8 +18,8 @@ SELECT p.position_name,
        MAX(e.current_salary) AS max_salary
 FROM position AS p
          INNER JOIN employee AS e on p.position_id = e.position_id
-GROUP BY p.position_name
-HAVING average IS NOT NULL;
+WHERE e.current_salary IS NOT NULL
+GROUP BY p.position_name;
 
 #4 get total number of days every person worked and total income
 
