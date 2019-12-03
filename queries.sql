@@ -19,7 +19,7 @@ SELECT p.position_name,
 FROM position AS p
          INNER JOIN employee AS e on p.position_id = e.position_id
 WHERE e.current_salary IS NOT NULL
-GROUP BY p.position_name;
+GROUP BY p.position_id;
 
 #4 get total number of days every person worked and total income
 
@@ -53,8 +53,9 @@ WHERE MONTHNAME(e.dob)='May';
 SELECT e.first_name, e.last_name,
        IF(
                e.fire_date IS NULL,
-               FLOOR(DATEDIFF(NOW(), e.hire_date)/365.25),
-               FLOOR(DATEDIFF(e.fire_date, e.hire_date)/365.25)
+               ROUND(DATEDIFF(NOW(), e.hire_date)/365.25, 1),
+               ROUND(DATEDIFF(e.fire_date, e.hire_date)/365.25, 1)
            ) AS worked_years
 FROM employee AS e
-ORDER BY worked_years DESC ;
+ORDER BY worked_years DESC;
+
