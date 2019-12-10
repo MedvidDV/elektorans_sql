@@ -24,7 +24,7 @@ GROUP BY p.position_id;
 #4 get total number of days every person worked and total income
 
 SELECT e.first_name, e.last_name,
-       COUNT(i.date) AS working_days,
+       COUNT(DISTINCT i.date) AS working_days,
        SUM(i.income) AS total_income
 FROM income AS i
          INNER JOIN employee AS e on i.employee_id = e.employee_id
@@ -36,7 +36,7 @@ GROUP BY e.employee_id;
 SELECT t.unit_number,
        SUM(i.income) AS total_income,
        AVG(i.income) AS average_income,
-       COUNT(i.date) AS working_days
+       COUNT(DISTINCT i.date) AS working_days
 FROM income AS i
          INNER JOIN transport AS t on t.transport_id=i.transport_id
 WHERE i.date BETWEEN '2019-09-01' AND '2019-09-30'
